@@ -6,6 +6,7 @@ ENV BUILD_JOB jentrata-msh-2.x
 ENV BUILD lastBuild
 
 ENV JENTRATA_HOME /opt/jentrata
+ENV WORK_DIR $JENTRATA_HOME
 ENV TOMCAT_HOME $CATALINA_HOME
 
 ENV TOMCAT_USER_NAME jentrata
@@ -25,5 +26,7 @@ RUN mkdir -p /opt/jentrata && \
     chmod a+x /opt/wait-for-it.sh
 
 COPY ROOT/index.html $TOMCAT_HOME/webapps/ROOT/index.html
+
+WORKDIR ${WORK_DIR}
 
 CMD ["/bin/sh", "/opt/run.sh"]
