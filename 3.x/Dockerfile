@@ -1,4 +1,4 @@
-FROM tomcat:9
+FROM tomcat:9-jdk8-corretto
 
 LABEL MAINTAINER="Arran Ubels a.ubels@base2services.com"
 
