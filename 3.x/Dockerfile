@@ -5,7 +5,7 @@ LABEL MAINTAINER="Arran Ubels a.ubels@base2services.com"
 ARG JENTRATA_VERSION=3.x.2b587b8
 
 ENV JDK_VERSION=10
-
+ENV JENTRATA_VERSION ${JENTRATA_VERSION}
 ENV JENTRATA_HOME /opt/jentrata
 ENV TOMCAT_HOME $CATALINA_HOME
 
@@ -18,11 +18,11 @@ ENV DB_HOST_NAME db
 # From https://raw.githubusercontent.com/vishnubob/wait-for-it/master/wait-for-it.sh
 COPY wait-for-it.sh /opt/wait-for-it.sh
 
-RUN yum install -y wget tar && \
+RUN yum install -y wget tar gzip && \
     yum clean all && \ 
     mkdir -p /opt/jentrata && \
     rm -rf $TOMCAT_HOME/webapps/* && \
-    wget https://github.com/jentrata/jentrata-msh/releases/download/${JENTRATA_VERSION}/jentrata-msh-3.x-SNAPSHOT-tomcat.tar.gz -O - | tar xz -C /opt/jentrata && \
+    wget -q https://github.com/jentrata/jentrata-msh/releases/download/${JENTRATA_VERSION}/jentrata-msh-3.x-SNAPSHOT-tomcat.tar.gz  -O - | tar xz -C /opt/jentrata && \
     ln -s $JENTRATA_HOME/webapps/corvus $TOMCAT_HOME/webapps/jentrata && \
     chmod a+x /opt/wait-for-it.sh && \
     mkdir -p /opt/jolokia && \
