@@ -1,11 +1,10 @@
 FROM tomcat:9
-MAINTAINER Arran Ubels a.ubels@base2services.com
+
+LABEL MAINTAINER="Arran Ubels a.ubels@base2services.com"
+
+ARG JENTRATA_VERSION=3.x-2b587b8
 
 ENV JDK_VERSION=10
-
-ENV VERSION msh-3.x-SNAPSHOT
-ENV BUILD_JOB jentrata-msh-master
-ENV BUILD lastBuild
 
 ENV JENTRATA_HOME /opt/jentrata
 ENV TOMCAT_HOME $CATALINA_HOME
@@ -21,7 +20,7 @@ COPY wait-for-it.sh /opt/wait-for-it.sh
 
 RUN mkdir -p /opt/jentrata && \
     rm -rf $TOMCAT_HOME/webapps/* && \
-    wget https://jentrata.ci.cloudbees.com/job/$BUILD_JOB/$BUILD/artifact/Dist/target/jentrata-$VERSION-tomcat.tar.gz -O - | tar xz -C /opt/jentrata && \
+    wget https://github.com/jentrata/jentrata-msh/releases/download/${JENTRATA_VERSION}/jentrata-msh-3.x-SNAPSHOT-tomcat.tar.gz -O - | tar xz -C /opt/jentrata && \
     ln -s $JENTRATA_HOME/webapps/corvus $TOMCAT_HOME/webapps/jentrata && \
     chmod a+x /opt/wait-for-it.sh && \
     mkdir -p /opt/jolokia && \
@@ -30,6 +29,8 @@ RUN mkdir -p /opt/jentrata && \
 COPY run.sh /opt/run.sh
 COPY ROOT/index.html $TOMCAT_HOME/webapps/ROOT/index.html
 
-EXPOSE 8778
+EXPOSE 8778 8080
+
+WORKDIR /opt/jentrata
 
 CMD ["/bin/sh", "/opt/run.sh"]
