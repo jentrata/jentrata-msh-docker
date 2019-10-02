@@ -18,7 +18,9 @@ ENV DB_HOST_NAME db
 # From https://raw.githubusercontent.com/vishnubob/wait-for-it/master/wait-for-it.sh
 COPY wait-for-it.sh /opt/wait-for-it.sh
 
-RUN mkdir -p /opt/jentrata && \
+RUN yum install -y wget tar && \
+    yum clean all && \ 
+    mkdir -p /opt/jentrata && \
     rm -rf $TOMCAT_HOME/webapps/* && \
     wget https://github.com/jentrata/jentrata-msh/releases/download/${JENTRATA_VERSION}/jentrata-msh-3.x-SNAPSHOT-tomcat.tar.gz -O - | tar xz -C /opt/jentrata && \
     ln -s $JENTRATA_HOME/webapps/corvus $TOMCAT_HOME/webapps/jentrata && \
