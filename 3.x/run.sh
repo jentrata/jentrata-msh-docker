@@ -33,7 +33,8 @@ if test "$ACTIVEMQ_MODE" = "external"; then
     export JENTRATA_ACTIVEMQ_CONNECTIONFACTORYURL="$ACTIVEMQ_URL"
 fi
 
-export JAVA_OPTS="$JAVA_OPTS --add-modules java.xml.ws -Dcorvus.home=$JENTRATA_HOME -javaagent:/opt/jolokia/jolokia-jvm.jar=host=0.0.0.0"
+#export JAVA_OPTS="$JAVA_OPTS --add-modules java.xml.ws -Dcorvus.home=$JENTRATA_HOME -javaagent:/opt/jolokia/jolokia-jvm.jar=host=0.0.0.0"
+export JAVA_OPTS="$JAVA_OPTS -Dcorvus.home=$JENTRATA_HOME -javaagent:/opt/jolokia/jolokia-jvm.jar=host=0.0.0.0"
 
 echo waiting for postgres
 /opt/wait-for-it.sh "$DB_HOST_NAME:5432"
