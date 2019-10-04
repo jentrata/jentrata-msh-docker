@@ -2,7 +2,7 @@ FROM tomcat:9-jdk8-corretto
 
 LABEL MAINTAINER="Arran Ubels a.ubels@base2services.com"
 
-ARG JENTRATA_VERSION=3.x.ea6ffda
+ARG JENTRATA_VERSION=3.x.59ada7f
 
 ENV JDK_VERSION=8
 ENV JENTRATA_VERSION ${JENTRATA_VERSION}
